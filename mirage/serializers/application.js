@@ -1,11 +1,4 @@
-import { RestSerializer } from 'ember-cli-mirage';
-import { underscore } from '@ember/string';
-
-export default RestSerializer.extend({
-  root: false,
-  embed: true,
-
-  keyForAttribute(attr) {
-    return underscore(attr);
-  }
+import { JSONAPISerializer } from 'ember-cli-mirage';
+export default JSONAPISerializer.extend({
+  include: Object.freeze(['labels', 'labels.categories'])
 });
