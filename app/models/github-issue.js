@@ -1,25 +1,22 @@
 import Model from 'ember-data/model';
 import attr from 'ember-data/attr';
-import { computed } from '@ember/object';
-import moment from 'moment';
+import { hasMany } from 'ember-data/relationships';
 
 export default Model.extend({
+  // these fields come directly from GitHub. This list should match the
+  // `neededFields` list in the server repo.
   number: attr('number'),
   title: attr('string'),
   state: attr('string'),
   createdAt: attr('date'),
   updatedAt: attr('date'),
   body: attr('string'),
-  repositoryName: attr('string'),
   url: attr('string'),
   htmlUrl: attr('string'),
-  repositoryHtml: attr('string'),
   repositoryUrl: attr('string'),
+  labels: hasMany('labels', { async: false }),
 
-  labels: attr(),
-
-  updatedAtFormatted: computed('updatedAt', function() {
-    let updatedAt = this.get('updatedAt');
-    return moment(updatedAt).format('MM-DD-YYYY hh:mm Z');
-  })
+  // these fields are synthesized on our server
+  repositoryName: attr('string'),
+  repositoryHtml: attr('string')
 });
